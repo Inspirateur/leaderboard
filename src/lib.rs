@@ -11,7 +11,9 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let scores = vec![150, 142, 138, 138, 135, 120, 101, 83, 66, 61, 61];
+        let scores = vec![
+            150, 142, 138, 138, 135, 120, 101, 83, 66, 61, 61
+        ];
         let ranking: Vec<_> = scores.iter_ranked().collect();
         let last = ranking.len();
         let mut rank = 1;
