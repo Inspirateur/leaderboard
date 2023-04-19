@@ -1,18 +1,22 @@
 use std::ops::Range;
-use crate::{ranked_iter::RankedIter, peek_ranked_iter::PeekRankedIter};
+use crate::{ranked_iter::RankedIter, sections_iter::SectionsIter};
 
-pub trait Leaderboard<E: PartialEq> {
+pub trait Ranking<E: PartialEq> {
     fn iter_ranked(&self) -> RankedIter<E>;
-
-    fn peek_ranked(&self, ranges: Vec<Range<usize>>) -> PeekRankedIter<E>;
 }
 
-impl<E: PartialEq> Leaderboard<E> for Vec<E> {
+pub trait Sections<E> {
+    fn iter_sections(&self, ranges: Vec<Range<usize>>) -> SectionsIter<E>;
+}
+
+impl<E: PartialEq> Ranking<E> for Vec<E> {
     fn iter_ranked(&self) -> RankedIter<E> {
         RankedIter::new(&self)
     }
+}
 
-    fn peek_ranked(&self, ranges: Vec<Range<usize>>) -> PeekRankedIter<E> {
-        PeekRankedIter::new(&self, ranges)
+impl<E> Sections<E> for Vec<E> {
+    fn iter_sections(&self, ranges: Vec<Range<usize>>) -> SectionsIter<E> {
+        SectionsIter::new(&self, ranges)
     }
 }
