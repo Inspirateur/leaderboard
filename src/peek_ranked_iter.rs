@@ -37,7 +37,11 @@ impl<'a, E: PartialEq> Iterator for PeekRankedIter<'a, E> {
         }
         if self.i < self.ranges[self.curr_range].start {
             let diff = self.ranges[self.curr_range].start - self.i;
-            self.i = self.ranges[self.curr_range].start;
+            // skip ahead to the next range
+            self.i += diff;
+            for _ in 0..diff {
+                self.iter.next();
+            }
             return Some(View::Skipped(diff));
         }
         self.i += 1;
