@@ -2,7 +2,7 @@ mod ranges_util;
 mod leaderboard_trait;
 mod ranked_iter;
 mod sections_iter;
-pub use leaderboard_trait::Ranking;
+pub use leaderboard_trait::{Ranking, Sections};
 pub use sections_iter::View;
 
 #[cfg(test)]
